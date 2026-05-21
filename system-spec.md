@@ -29,25 +29,27 @@ In traditional finance, payment processors like Stripe offer chargebacks and mer
 ```
    [ Sandboxes (EVM/Solana) ]                 [ Giant Bitcoin Castle (GOAT) ]
 ┌───────────────────────────────┐          ┌───────────────────────────────────┐
-│  🤖 Transactional Agent        │          │   📦 Syndicate Vault              │
-│  🔴 Target Contract           │          │   - LP Pool (BTC, WBTC, Stablecoins)  │
-└──────────────┬────────────────┘          └─────────────────┬─────────────────┘
-               │                                             │
-               │ (1. Request Quote / 3. Pay x402 Premium)    │ (5. Payout Payout)
-               ▼                                             │
-┌───────────────────────────────┐                            │
+│  🤖 Transactional Agent        │ <────────│─── (7. Execute Claim Payout)      │
+│  🔴 Target Contract           │          │   📦 Syndicate Vault              │
+└───────┬──────────────▲────────┘          │   - LP Pool (BTC, WBTC, Stablecoins)  │
+        │              │                   └─────────────────▲─────────────────┘
+        │ (1. Request  │ (2. Return                          │
+        │  Quote)      │  Quote)                             │
+        ▼              │                                     │
+┌──────────────────────┴────────┐                            │
 │  🦉 ClawUp Underwriter Agent  │ ───────────────────────────┼─────────────────┘
 │  - OpenClaw Framework         │ (4. Register Active Cover) │
 │  - Real-time Risk Engine      │                            │
-└──────────────┬────────────────┘                            │
-               │                                             │
-               │ (6. Detect Outage / Fail Event)             │
-               ▼                                             ▼
-┌───────────────────────────────┐ (7. Payout Message)  ┌───────────────────────┐
-│  📬 Cross-Chain Messenger     │ ───────────────────> │ 📋 Claim Guardrail    │
-│  - Chainlink CCIP / LayerZero │                      │ - Auto (< $50M)       │
-└───────────────────────────────┘                      │ - Multi-Sig (>= $50M) │
-                                                       └───────────────────────┘
+└───────┬───────────────────────┘                            │
+        │ (3. Pay x402 Premium)                              │
+        │                                                    │
+        │ (5. Detect Outage / Fail Event)                    │
+        ▼                                                    │
+┌───────────────────────────────┐ (6. Payout Message)      ┌─┴─────────────────────┐
+│  📬 Cross-Chain Messenger     │ ───────────────────────> │ 📋 Claim Guardrail    │
+│  - Chainlink CCIP / LayerZero │                          │ - Auto (< $50M)       │
+└───────────────────────────────┘                          │ - Multi-Sig (>= $50M) │
+                                                           └───────────────────────┘
 ```
 
 ### The Tech Stack
