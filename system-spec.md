@@ -70,11 +70,12 @@ Functional requirements describe what processes the system must perform and what
 *   **FR-1.1**: The system must allow Liquidity Providers (LPs) to deposit native BTC, wrapped BTC (e.g., WBTC, solBTC), and stablecoins (USDT/USDC) into designated risk syndicates.
 *   **FR-1.2**: The system must record and track individual LP deposit balances, lock-up periods, and proportional ownership of the syndicate pool.
 *   **FR-1.3**: The system must support manual withdrawal requests for LPs, subject to predefined lock-up cooldowns.
+*   **FR-1.4 (Collateral Reservation)**: The Syndicate Vault must track "Reserved Capital" (funds allocated to cover active, unexpired policies). The system must restrict LP withdrawals if the withdrawal would cause the vault's free capital (Total Capital minus Reserved Capital) to fall below the total active coverage requirements, preventing bank runs during exploit events.
 
 ### FR-2: AI-Driven Risk Assessment & Underwriting
 *   **FR-2.1**: The ClawUp-hosted OpenClaw Agent must support a querying interface where clients (AI agents or DApps) request an underwriting quote for a specific transaction payload or contract address.
-*   **FR-2.2**: The Underwriter Agent must programmatically analyze public ledger data (such as wallet age, transaction frequency, contract source code verification, and pool depth) to generate a "Trust Score."
-*   **FR-2.3**: The Underwriter Agent must dynamically calculate and return the required premium fee based on the trust score and transaction volume.
+*   **FR-2.2**: The Underwriter Agent must programmatically analyze public ledger data (such as wallet age, transaction frequency, contract source code verification, and pool depth) and perform **Related Wallet Clustering** (identifying associated wallets, previous transfers, and shared funding sources belonging to the same owner) to generate a robust, multi-wallet "Trust Score."
+*   **FR-2.3**: The Underwriter Agent must dynamically calculate and return the required premium fee based on the trust score, transaction volume, and a **Premium Gas Buffer** that pre-pays cross-chain messaging costs (Chainlink CCIP / LayerZero relayer fees), shielding the protocol treasury from gas spikes.
 
 ### FR-3: x402 Micropayment Processing
 *   **FR-3.1**: The system must generate an order intent when an underwriting quote is accepted by a client.
@@ -86,6 +87,7 @@ Functional requirements describe what processes the system must perform and what
 *   **FR-4.2**: The OpenClaw Underwriter Agent must autonomously query the target network explorer via WebSockets/RPC to verify the transaction failure or exploit status.
 *   **FR-4.3**: For claim payout values **below $50,000,000**, the system must automatically execute a programmatic payout from the Syndicate Vault to the claimant's target address via Chainlink CCIP/LayerZero.
 *   **FR-4.4**: For claim payout values **equal to or exceeding $50,000,000**, the system must halt automatic settlement, notify the governance dashboard, and require a human auditor to review logs and sign a **2-of-3 Gnosis Safe Multi-Sig transaction** to authorize the payout.
+*   **FR-4.5 (Replay & Double-Claim Mitigation)**: The Syndicate Vault contract must maintain an on-chain ledger mapping verified claim transaction hashes to prevent replay attacks. The contract must reject any claim payouts targeting a transaction hash that has already been processed or compensated.
 
 ---
 
