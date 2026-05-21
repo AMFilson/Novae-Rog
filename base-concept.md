@@ -27,7 +27,7 @@ However, **AI agents pose massive financial risks**:
                      ▼
            ┌───────────────────┐
            │  Risk Syndicate   │ <─── Underwritten by OpenClaw Agent
-           │  (Collateral Pool)│
+           │  (Collateral Pool)│      (Hosted on ClawUp.org)
            └─────────┬─────────┘
                      │
     User transacts    │ (x402 Micropayment Premium)
@@ -40,12 +40,23 @@ However, **AI agents pose massive financial risks**:
 
 ---
 
+## ☁️ The Underwriter Architecture: ClawUp Hosting
+
+To guarantee maximum uptime, seamless API integration, and frictionless channel connections, the core underwriter agent of Novae Rog will be hosted and managed as follows:
+
+1.  **Platform**: Deploy the autonomous OpenClaw underwriter agent directly on the managed **ClawUp** platform ([https://clawup.org/](https://clawup.org/)).
+2.  **Orchestration Layer**: Use OpenClaw’s robust orchestration engine to read external files, query on-chain variables, and process dynamic Large Language Model (LLM) prompts.
+3.  **Communication Bridge**: Configure ClawUp to connect the underwriter directly to front-end communication channels (such as a Telegram Bot or Slack Workspace). This enables DApps and human developers to query risk ratings and receive instant coverage quotes in a chat-like terminal.
+4.  **Secure Vault Access**: Keep all private keys, API secrets, and GOAT network connection configurations encrypted inside ClawUp's managed environment to prevent security leaks.
+
+---
+
 ## 🛠️ How It Integrates the Hackathon Stack
 
 Here is how Novae Rog integrates the specific technologies featured in the hackathon challenge:
 
 ### 1. The Underwriter (OpenClaw + ERC-8004)
-*   **The Tech**: You deploy an AI agent using the **OpenClaw** framework. This agent has a verified Web3 identity using the **ERC-8004** standard.
+*   **The Tech**: You deploy an AI agent using the **OpenClaw** framework on **ClawUp**. This agent has a verified Web3 identity using the **ERC-8004** standard.
 *   **The Role**: This agent acts as the "Lloyd's Underwriter." It is given tools to read public blockchain data (wallet age, transaction frequency, past slippage, liquidation rates).
 *   **The Action**: When another agent wants to execute a high-value contract, it calls the Novae Rog Underwriter API. The Novae Rog agent analyzes the transaction risk and returns a customized insurance premium quote (e.g., *"This swap has a 2% chance of failing; premium is 0.00002 BTC"*).
 
@@ -82,7 +93,7 @@ In these sandboxes, **AI Robots** (AI Agents) are trading toys with each other. 
 Sometimes, a robot trades a toy, but the toy turns out to be broken. Or another robot runs away with the toy. Because robots don't have moms or dads to resolve fights, the robot loses its toy forever. **This is a smart contract hack or a transaction failure.**
 
 ### 3. The Wise Owl 🦉 (OpenClaw AI)
-Sitting on top of the **Giant Bitcoin Castle** is a **Wise Owl**. The Owl is super smart and has binoculars. It can watch every single sandbox on the playground.
+Sitting on top of the **Giant Bitcoin Castle** is a **Wise Owl** (our ClawUp-hosted OpenClaw Agent). The Owl is super smart and has binoculars. It can watch every single sandbox on the playground.
 *   Before a robot makes a trade in the Ethereum Sandbox, it yells up to the Owl: *"Hey Owl! I want to trade this red block, but I'm scared. Can you protect me?"*
 *   The Owl looks through its binoculars, checks the history of the other robot, and says: *"Yes! That trade is 99% safe. But just in case, pay me **1 piece of candy**, and I will guarantee it."*
 
