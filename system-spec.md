@@ -77,10 +77,10 @@ Functional requirements describe what processes the system must perform and what
 
 ### FR-2: AI-Driven Risk Assessment & Underwriting
 *   **FR-2.1**: The ClawUp-hosted OpenClaw Agent must support a querying interface where clients (AI agents or DApps) request an underwriting quote for a specific transaction payload or contract address.
-*   **FR-2.2**: The Underwriter Agent must generate a robust multi-wallet **Trust Score** by performing **Related Wallet Clustering**:
-    *   **FR-2.2.1**: The Agent must analyze public ledger history to trace shared funding sources (e.g., deposits originating from the same exchange deposit address or intermediary transit wallet).
-    *   **FR-2.2.2**: The Agent must scan co-interaction graphs, mapping addresses that frequently trade with the same contracts or transfer funds bi-directionally to identify clusters belonging to the same owner.
-    *   **FR-2.2.3**: The Trust Score must degrade programmatically if any wallet in the identified cluster has a history of transaction failures, smart contract interactions with known exploits, or blacklisted state variables, dynamically adjusting the risk profile.
+*   **FR-2.2**: The Underwriter Agent must generate a robust multi-wallet **Trust Score** by performing **Cross-Chain Related Wallet Clustering**:
+    *   **FR-2.2.1**: The Agent must analyze public ledger history across multiple blockchains (including Ethereum, L2 networks like Base/Arbitrum, Solana, and Bitcoin) to trace shared funding sources, such as deposits originating from the same central exchange deposit address or a shared cross-chain bridge transit address.
+    *   **FR-2.2.2**: The Agent must scan multi-chain co-interaction graphs, identifying wallet addresses that are commonly registered under the same decentralized identity registries (e.g., ENS or SNS), share identical cryptographic signature payloads, or exhibit highly correlated cross-chain behavioral timing patterns to cluster wallets belonging to the same owner.
+    *   **FR-2.2.3**: The Trust Score must degrade programmatically if any wallet in the identified multi-chain cluster has a history of transaction failures, smart contract interactions with known exploits, active blacklists, or malicious activities on *any* covered blockchain network, dynamically adjusting the risk profile.
 *   **FR-2.3**: The Underwriter Agent must calculate the premium and shield the treasury from volatility using a **Premium Gas Buffer (Gap C Solution)**:
     *   **FR-2.3.1**: The premium must include a dynamic gas surcharge that pre-pays all cross-chain messaging costs (e.g., Chainlink CCIP router fees or LayerZero relayer gas).
     *   **FR-2.3.2**: A dynamic pricing oracle must update the estimated message-passing gas costs every 10 minutes to guarantee the client pays 100% of the cross-chain overhead, insulating the protocol treasury from gas spikes.
