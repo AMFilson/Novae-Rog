@@ -109,6 +109,11 @@ Functional requirements describe what processes the system must perform and what
 *   **FR-5.6**: To optimize scaling for micro-transactions:
     *   **FR-5.6.1**: The Underwriter Agent must cache risk scores and coverage quotes off-chain to minimize RPC calls.
     *   **FR-5.6.2**: All retail transactions must utilize high-throughput L2/L3 execution (GOAT L2) to ensure transactional gas fees remain below $0.001 per purchase.
+*   **FR-5.7**: The system must enforce **Dynamic Settlement Pathways** for merchants based on their real-time trust score to balance merchant cash flow and consumer protection:
+    *   **FR-5.7.1 (Instant Payout Pathway - $T+0$)**: If a merchant's Trust Score (as defined in FR-2.2) is $\ge 95/100$, the escrow contract must instantly release the transaction capital to the merchant's wallet at checkout, waiving the 30-day return lockup.
+    *   **FR-5.7.2 (Staker-Backed Risk Coverage)**: For transactions cleared instantly under FR-5.7.1, if a customer agent files a valid dispute or returns an item within 30 days, the Underwriter Agent must trigger a payout directly from the **Syndicate Vault** pool to refund the buyer, fully insulating the consumer from merchant default.
+    *   **FR-5.7.3 (Syndicate-Backed Instant Payout Option)**: If a merchant's Trust Score is between 60 and 94/100, the system must allow the merchant to request an instant settlement in exchange for a dynamic risk premium paid via the **x402** protocol to the Syndicate Vault to offset the credit and chargeback risk.
+    *   **FR-5.7.4 (Standard Escrow Pathway)**: If a merchant's Trust Score is $< 60/100$ or unverified, the contract must strictly lock funds in the standard 30-day escrow, releasing them only upon carrier delivery verification or return window expiry.
 
 ---
 
