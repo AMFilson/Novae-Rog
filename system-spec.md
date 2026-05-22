@@ -1,6 +1,6 @@
 # 🛡️ Novae Rog: Business Plan & System Requirements Specification (SRS)
 
-This document outlines the complete conceptual architecture, technical stack, business model, and official **Functional and Non-Functional Requirements** for **Novae Rog** (Stripe + Lloyd's of London for the AI Agent Economy). 
+This document outlines the complete conceptual architecture, technical stack, business model, and official **Functional and Non-Functional Requirements** for **Novae Rog** (providing programmatic payment clearing and real-time decentralized risk underwriting for the AI Agent Economy, modeled as an automated equivalent to traditional payment gateways and Lloyd's-style bespoke underwriting syndicates).
 
 This specification is modeled directly after the systems analysis and design standards defined in your college courses (Dennis, Wixom, & Tegarden framework).
 
@@ -99,6 +99,16 @@ Functional requirements describe what processes the system must perform and what
     *   **FR-4.5.1**: The Syndicate Vault must store a mapping of `mapping(bytes32 => bool) public processedClaims` to register paid claims.
     *   **FR-4.5.2**: The unique key for each claim must combine the target chain ID and the transaction hash: `keccak256(abi.encodePacked(chainId, txHash))`.
     *   **FR-4.5.3**: Before any claim payout is sent or authorized, the contract must assert `processedClaims[claimKey] == false` and immediately set `processedClaims[claimKey] = true` upon transaction success, programmatically preventing cross-chain or multi-transaction replay attacks.
+
+### FR-5: Programmatic Escrow & Everyday Retail Underwriting
+*   **FR-5.1**: The system must support a **Programmatic Escrow Pathway** for consumer retail e-commerce transactions (e.g., shopping on Amazon, Fashion Nova, or Lululemon).
+*   **FR-5.2**: The escrow smart contract must lock client funds upon transaction initialization and support a standard **30-day return dispute window**.
+*   **FR-5.3**: The Underwriter Agent must programmatically interface with shipping API endpoints (e.g., FedEx, UPS, DHL, or merchant portals) to verify delivery status and return tracking.
+*   **FR-5.4**: If a shipping dispute or return is verified by the Underwriter Agent within the 30-day window, the contract must autonomously refund the locked escrow to the shopping agent's wallet.
+*   **FR-5.5**: If no dispute is filed within the 30-day window, the contract must programmatically release the locked funds to the merchant's target wallet.
+*   **FR-5.6**: To optimize scaling for micro-transactions:
+    *   **FR-5.6.1**: The Underwriter Agent must cache risk scores and coverage quotes off-chain to minimize RPC calls.
+    *   **FR-5.6.2**: All retail transactions must utilize high-throughput L2/L3 execution (GOAT L2) to ensure transactional gas fees remain below $0.001 per purchase.
 
 ---
 
