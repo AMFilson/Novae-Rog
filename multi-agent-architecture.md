@@ -77,6 +77,7 @@ Each agent operates within its own dedicated OpenClaw sandbox with custom, narro
 
 ### 3. Claims Verification & Arbitration Agent (CVAA)
 *   **Primary Duty**: Programmatically queries block explorers, monitors transaction failure states, and interfaces with shipping/carrier APIs (FedEx/UPS) to arbitrate return disputes.
+    *   **Outage Safeguard (Human Escrow Escalation)**: If external carrier APIs remain offline or throttled for more than 24 hours during a dispute, CVAA programmatically triggers an on-chain **Dispute Freeze** (pausing the 30-day escrow release countdown) and escalates the policy payload to a multi-sig dashboard for manual review by a certified human auditor using paper tracking receipts, protecting merchants and stakers from automated system faults.
 *   **LLM Configuration**: Optimized for code execution, API parsing, and logical validation.
 *   **Security Profile**: Fully isolated. It does not read user-generated prompts; it only consumes raw, structured JSON explorer payloads and carrier API data.
 
