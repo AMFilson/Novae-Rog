@@ -52,6 +52,28 @@ Each of the four air-gapped agents is represented as a graphical, glowing card t
     *   *Visuals:* A Castle Guard Bear guarding a vault door.
     *   *Live Display:* Shows the balances of the **Syndicate Vault** and the **Merchant Stake Vault**. Displays cryptographic signature verification indicators (`ROSA_Sig: OK`, `CVAA_Sig: OK`) before the vault doors open.
 
+### 📊 Information Density & Data Transparency Rule
+
+To balance conceptual storytelling with rigorous technical authenticity, **the graphical visualizer must act as an enhancement, never as a replacement for raw, quantifiable data.** Technical judges, developers, and security auditors must be able to verify every step of the transaction in real-time. 
+
+Each graphical node card must explicitly display the following **numbers, words, and hashes** alongside the graphics:
+
+*   **ROSA Card Quantifiables:**
+    *   **Trust Score:** Mapped as an exact numeric fraction (e.g., `85/100`).
+    *   **Multi-Chain Trace:** Numeric counts of wallets analyzed (e.g., `Cluster Size: 4 wallets across 3 chains`).
+    *   **Premium Quote:** Exact fee in native Wei, BTC, and USD value (e.g., `Quote: 0.05 USDT / 0.0000008 BTC`).
+    *   **Cryptographic Output:** The truncated hex string of the generated `ecrecover` signature (e.g., `ROSA_Sig: 0x9f3e...8c2a`).
+*   **XCPA Card Quantifiables:**
+    *   **Order ID & Premium:** The unique order intent hash and expected value (e.g., `Intent: #x402-901a | 0.05 USDT`).
+    *   **On-Chain Confirmation:** The exact block height at which payment confirmation was registered on-chain (e.g., `Confirmed at Block: #12,459,202`).
+*   **CVAA Card Quantifiables:**
+    *   **Transaction Status:** Exact transaction hash being audited (e.g., `Tx Hash: 0xa8f2...7b1a`).
+    *   **Shipping Verification:** Numeric carrier tracking numbers, transit status text, and real-time latency (e.g., `Carrier API: FedEx #7948293 | Status: In-Transit (Dispute Frozen) | Latency: 12ms`).
+*   **VRSA Card Quantifiables:**
+    *   **Syndicate Vault Balance:** Real-time balances tracked down to the decimal (e.g., `Balance: 120.00 BTC / 50,000.00 USDT`).
+    *   **Merchant Stake Vault:** Active collateral buffer and dynamic liquidation value (e.g., `Collateral: 2,500.00 USDC | Liquidation Value: 105.00 USDC (includes 5% Bounty)`).
+    *   **Payout Hash:** Truncated blockchain execution receipt hash (e.g., `Refund Tx: 0x5b38...9f10`).
+
 ---
 
 ## ⚡ 2. The Demo Sequence (Real Transaction Simulation)
