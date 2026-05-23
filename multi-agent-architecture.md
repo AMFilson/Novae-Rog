@@ -71,13 +71,14 @@ Each agent operates within its own dedicated OpenClaw sandbox with custom, narro
 *   **Security Profile**: **Untrusted Boundary Agent**. Because ROSA directly reads external target contract data, it is treated as highly vulnerable to prompt injection. It has **zero cryptographic authorization** to interact with the Syndicate Vault.
 
 ### 2. x402 Clearing & Payment Agent (XCPA)
-*   **Primary Duty**: Programmatically monitors the `402 Payment Required` states, registers micro-transaction intents, and verifies on-chain receipt of risk premiums.
+*   **Primary Duty**: Programmatically monitors the `402 Payment Required` states, registers micro-transaction intents, and verifies on-chain receipt of risk premiums (specifically parsing the EIP-712 transaction memo/data payload to extract the cryptographically signed `policyId` and link the payment automatically to the pending quote).
 *   **LLM Configuration**: Optimized for math, structured JSON processing, and transaction indexing.
 *   **Security Profile**: Operates with read-only RPC access, acting as an automated clearinghouse.
 
 ### 3. Claims Verification & Arbitration Agent (CVAA)
 *   **Primary Duty**: Programmatically queries block explorers, monitors transaction failure states, and interfaces with shipping/carrier APIs (FedEx/UPS) to arbitrate return disputes.
     *   **Outage Safeguard (Human Escrow Escalation)**: If external carrier APIs remain offline or throttled for more than 24 hours during a dispute, CVAA programmatically triggers an on-chain **Dispute Freeze** (pausing the 30-day escrow release countdown) and escalates the policy payload to a multi-sig dashboard for manual review by a certified human auditor using paper tracking receipts, protecting merchants and stakers from automated system faults.
+    *   **Target Chain RPC Outage Safeguard**: If explorer or RPC queries to target sandboxes (e.g. Base, Solana) timeout or fail due to external network outages or node throttling, CVAA programmatically registers an on-chain **Outage Freeze** on the GOAT Network, stopping policy expiration countdowns until target RPC connection is restored, fully preserving client coverage.
 *   **LLM Configuration**: Optimized for code execution, API parsing, and logical validation.
 *   **Security Profile**: Fully isolated. It does not read user-generated prompts; it only consumes raw, structured JSON explorer payloads and carrier API data.
 
