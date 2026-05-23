@@ -67,7 +67,7 @@ Each agent operates within its own dedicated OpenClaw sandbox with custom, narro
 
 ### 1. Risk Oracle & Scorer Agent (ROSA)
 *   **Primary Duty**: Evaluates target contracts, performs multi-chain wallet clustering, and generates the real-time **Trust Score**.
-*   **LLM Configuration**: Optimized for data analysis, parsing transaction histories, and pattern recognition.
+*   **LLM Configuration (Hybrid Intelligence Model)**: ROSA utilizes a lightweight local open-source model (e.g., Llama 3 8B) hosted directly in the ClawUp sandbox for standard, low-cost pattern matching and rapid, zero-cost classifications. For highly complex or high-value transactions (e.g., >= $10,000 covered value), it programmatically escalates and queries a premium commercial API (like GPT-4o or Claude 3.5 Sonnet) via API keys secured inside ClawUp's native environment vault, perfectly balancing execution speed, privacy, and operating costs.
 *   **Security Profile**: **Untrusted Boundary Agent**. Because ROSA directly reads external target contract data, it is treated as highly vulnerable to prompt injection. It has **zero cryptographic authorization** to interact with the Syndicate Vault.
 
 ### 2. x402 Clearing & Payment Agent (XCPA)
