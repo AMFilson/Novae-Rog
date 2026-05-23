@@ -124,16 +124,15 @@ To prevent stakers' capital in the **Syndicate Vault** from being drained when a
 
 1.  **Immediate Payout & Automatic Settlement Clawback**:
     *   When a dispute is approved, the Syndicate Vault instantly refunds the shopping agent to maintain credit-card-level buyer protection.
-    *   Simultaneously, the smart contract attempts to pull the refund amount programmatically from the merchant’s **linked Web3 wallet** or their **pending payout stream** (if they have ongoing sales).
 2.  **Programmatic Reimbursement Prompts (API/Webhook)**:
-    *   The ClawUp-hosted underwriter agent instantly fires a webhook to the merchant's integration dashboard (or Telegram/Slack channel): *"Dispute processed for Transaction #XYZ. 0.02 BTC deducted from Syndicate Vault. Re-deposits required within 48 hours to maintain Instant Settlement status."*
-3.  **The Merchant Stake Vault (Required Collateral)**:
-    *   To qualify for $T+0$ instant payouts, merchants must lock a minimum amount of capital (e.g., BTC or stablecoins) into a **Merchant Stake Vault** on GOAT Network.
-    *   If the merchant does not manually reimburse the Syndicate Vault within 48 hours, the protocol programmatically **liquidates** the debt from the merchant's staked collateral, transferring it back to the Syndicate Vault to keep stakers 100% whole.
+    *   The ClawUp-hosted underwriter agent instantly fires a webhook to the merchant's integration dashboard (or Telegram/Slack channel): *"Dispute processed for Transaction #XYZ. 100 USDT deducted from Syndicate Vault. Re-deposits required within 48 hours to maintain Instant Settlement status."*
+3.  **The Merchant Stake Vault (Price-Stable Collateral)**:
+    *   To qualify for $T+0$ instant payouts, merchants must lock a minimum amount of **USD Stablecoins (USDT/USDC)** into a dedicated **Merchant Stake Vault** on GOAT Network. This strictly insulates stakers from asset volatility and avoids on-chain margin calls.
+    *   If the merchant does not manually reimburse the Syndicate Vault within 48 hours, the protocol programmatically **liquidates** the debt from the merchant's staked stablecoins, transferring it back to the Syndicate Vault to keep stakers fully whole.
 4.  **Trust Degradation & Dynamic Premium Spikes**:
-    *   If a merchant defaults on their debt or their Stake Vault falls below the required threshold, their **Trust Score** instantly degrades.
-    *   They lose the $T+0$ instant settlement privilege and are downgraded to the **30-Day Escrow Pathway**.
-    *   Furthermore, their **x402 dynamic premium fee** spikes dramatically (e.g., from 0.5% to 5%) to cover their higher default probability, ensuring that failing to fulfill their side of the bargain is financially unviable.
+    *   If a merchant defaults on their debt or their Stake Vault falls below the required threshold, their **Trust Score** instantly degrades by 20 points.
+    *   They lose the $T+0$ instant settlement privilege, are downgraded to the **30-Day Escrow Pathway**, and their **x402 dynamic premium fee** spikes dramatically (e.g., from 0.5% to 5%) to cover their higher default probability, ensuring that failing to fulfill their side of the bargain is financially unviable.
+    *   **Staker Liquidation Bounty**: To reward stakers for absorbing default credit risk, the smart contract deducts an additional **5% Liquidation Bounty** from the merchant's remaining locked stake during a collateral liquidation, distributing it directly to the staker pool as an active yield bonus.
 
 ---
 
@@ -144,31 +143,26 @@ Imagine a massive school playground with different sandboxes:
 *   There is the **Solana Sandbox** 🟣 (where kids trade super-fast purple blocks).
 *   And in the middle of the playground stands a **Giant Bitcoin Stone Castle** 🏰 (which is super strong, has the best locks, and never falls down. This is the **GOAT Network**).
 
-### 1. The Players 👦👧
+### 1. The Players 🤖
 In these sandboxes, **AI Robots** (AI Agents) are trading toys with each other. They are very fast, but they don't have human brains.
 
 ### 2. The Risk (The "Oh No!" Moment) 💥
 Sometimes, a robot trades a toy, but the toy turns out to be broken. Or another robot runs away with the toy. Because robots don't have moms or dads to resolve fights, the robot loses its toy forever. **This is a smart contract hack or a transaction failure.**
 
-### 3. The Wise Owl 🦉 (OpenClaw AI)
-Sitting on top of the **Giant Bitcoin Castle** is a **Wise Owl** (our ClawUp-hosted OpenClaw Agent). The Owl is super smart and has binoculars. It can watch every single sandbox on the playground.
-*   Before a robot makes a trade in the Ethereum Sandbox, it yells up to the Owl: *"Hey Owl! I want to trade this red block, but I'm scared. Can you protect me?"*
-*   The Owl looks through its binoculars, checks the history of the other robot, and says: *"Yes! That trade is 99% safe. But just in case, pay me **1 piece of candy**, and I will guarantee it."*
+### 3. The Wise Forest Council 🦉🐿️🦝🐻
+To make trading safe, four smart forest creatures live in the **Giant Bitcoin Castle** (our ClawUp-hosted OpenClaw Multi-Agent Orchestrators). Instead of one single animal doing everything, they divide the tasks so no single creature can be tricked:
 
-### 4. The Candy Ticket 🍬 (x402 Micropayments)
-The robot throws **1 piece of candy** up to the Owl. The Owl catches it. This candy is the **premium** (the tiny fee to buy safety). The robot gets a glowing ticket that says: *"Insured by the Owl."*
+*   **The Wise Owl 🦉 (ROSA - Risk Agent):** Sits on the castle tower with binoculars, watching the sandboxes. Before a robot trades, it yells: *"Owl, can you protect me?"* The Owl checks the other robot's trade history and says: *"Yes! That is safe, but pay me **1 piece of candy** to guarantee it."* ROSA writes this on a scroll.
+*   **The Candy-Counting Squirrel 🐿️ (XCPA - Payment Agent):** Sits at the castle gate, monitoring the candy ticket box (the x402 gateway). The moment the robot drops in the **1 piece of candy**, the Squirrel validates it, signs the scroll, and turns the robot's trade shield to **Active**.
+*   **The Detective Raccoon 🦝 (CVAA - Claims Agent):** If a robot cries because a toy broke, the Raccoon runs out with a magnifying glass, queries the sandbox block history, or checks carrier delivery portals. If the toy is truly broken or lost, the Raccoon signs a **Verified Outage Scroll**.
+*   **The Castle Guard Bear 🐻 (VRSA - Vault Agent):** Guards the **Big Toy Chest** (the staker capital pool). The Bear is extremely strict and has *no ears* for stories—it cannot be tricked or prompt-injected by sad robots. The Bear will **only** open the Toy Chest and hand a backup toy to the sad robot if presented with a scroll signed by **both** the Wise Owl 🦉 and the Detective Raccoon 🦝.
 
-### 5. The Big Toy Chest 📦 (The Capital Pool)
-Inside the **Giant Bitcoin Castle**, a bunch of kids have pooled their toys together into a **Giant Toy Chest** (the underwriting capital pool).
-*   If the robot's trade goes perfectly, the Owl drops the 1 piece of candy into the Toy Chest. The kids who pooled their toys get to eat the candy! They are happy.
-*   But if the robot gets scammed in the Ethereum Sandbox, the Owl immediately opens the Giant Toy Chest, grabs a backup toy, and flies it down to the sad robot. The robot is saved!
-
-### 6. Small Sandbox Trades (Buying a Toy Car) 🚗
+### 4. Small Sandbox Trades (Buying a Toy Car) 🚗
 Sometimes a robot doesn't want to make a big swap; it just wants to buy a tiny toy car from a merchant robot's shop (like buying a shirt on Amazon, Fashion Nova, or Lululemon). 
-*   **The Button Jar**: Instead of giving the merchant robot the buttons (money) right away, the Wise Owl tells the shopping robot to put the buttons in a **little glass jar** (the Programmatic Escrow) and keep it on the Owl's shelf.
+*   **The Button Jar**: Instead of giving the merchant robot the buttons (money) right away, the Candy Squirrel tells the shopping robot to put the buttons in a **little glass jar** (the Programmatic Escrow) and keep it on the Owl's shelf.
 *   **The 30-Day Wait**: The jar sits on the shelf for 30 days. This gives the shopping robot plenty of time to play with the toy car and make sure its wheels don't fall off!
-*   **Getting a Refund**: If the toy car breaks within 30 days, the robot tells the Owl. The Owl takes the buttons out of the jar and hands them back to the robot. If the car is perfect after 30 days, the Owl hands the buttons to the merchant robot. 
-*   **Why It Scales**: Because keeping buttons in a little glass jar is so easy and doesn't cost anything, the Owl can manage thousands of little jars for all the robots on the playground without getting tired!
+*   **Getting a Refund**: If the toy car breaks within 30 days, the Detective Raccoon inspects it, verifies the error, and the Owl hands the buttons back to the robot. If the car is perfect after 30 days, the Owl hands the buttons to the merchant robot. 
+*   **Why It Scales**: Because keeping buttons in a little glass jar is so easy and doesn't cost anything, the Squirrel can manage thousands of little jars for all the robots on the playground without getting tired!
 
 ---
 
