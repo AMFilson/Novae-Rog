@@ -82,7 +82,7 @@ Each agent operates within its own dedicated OpenClaw sandbox with custom, narro
 *   **Security Profile**: Fully isolated. It does not read user-generated prompts; it only consumes raw, structured JSON explorer payloads and carrier API data.
 
 ### 4. Vault Settlement & Recourse Agent (VRSA)
-*   **Primary Duty**: Directs programmatic pool disbursements from the Syndicate Vault, manages locked **Merchant Stake Vaults** (strictly enforcing a price-stable **USD Stablecoin (USDT/USDC)** collateral lock to insulate stakers from volatility and avoid dynamic margin calls), executes automated clawbacks, and triggers staker payouts.
+*   **Primary Duty**: Directs programmatic pool disbursements from the Syndicate Vault, manages locked **Merchant Stake Vaults** (strictly enforcing a price-stable **USD Stablecoin (USDT/USDC)** collateral lock to insulate stakers from volatility and avoid dynamic margin calls), executes automated clawbacks (liquidating merchant collateral from the Stake Vault to reimburse the Syndicate Vault 1-to-1, plus a dynamic **5% Liquidation Bounty** deducted from the merchant's remaining locked stake and distributed directly to the staker pool to reward liquidity providers for absorbing default credit risk), and triggers staker payouts.
 *   **LLM Configuration**: Optimized for smart contract interactions, transaction building, and cryptographic signature generation.
 *   **Security Profile**: **Highly Protected Kernel Agent**. VRSA does *not* interact with the external internet or read arbitrary LLM text. It only executes transactions upon receiving cryptographically signed state updates from ROSA and CVAA.
 
