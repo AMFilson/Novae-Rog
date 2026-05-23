@@ -18,36 +18,44 @@ Novae Rog resolves this by dividing core duties among **four highly specialized,
 ```
        ┌───────────────────────────────┐
        │     Client / DApp Interface   │
-       └───────────────┬───────────────┘
-                       │
-             (1. Request Risk Quote)
-                       ▼
- ┌───────────────────────────────────────────┐
+       └───────┬───────────────▲───────┘
+               │               │ (2. Returns Quote)
+     (1. Request Risk Quote)   │
+               ▼               │
+ ┌─────────────────────────────┴─────────────┐
  │ 🦉 Agent 1: Risk Oracle & Scorer (ROSA)   │ <── [Vulnerable to Prompt Injection]
  └─────────────────────┬─────────────────────┘
-                       │
-             (2. Signs Risk Payload)
+                       │ (3. Signs & Posts Quote)
                        ▼
  ┌───────────────────────────────────────────┐
- │ 📋 State Synchronization & Context Engine │ <── [Strict Schema / SQL & Prompt Sanitizer]
- └─────────────────────┬─────────────────────┘
+ │ 📋 State Synchronization & Context Engine │ <── [Structured State: Policy = "Pending"]
+ └─────────────────────▲─────────────────────┘
                        │
-       (3. Signed State)│ (4. Claim Request)
-                       ▼ ▼
+             (4. Pays x402 Premium)
+                       ▼
  ┌───────────────────────────────────────────┐
- │ 🦉 Agent 2: Claims Verification (CVAA)    │ <── [Isolated Runtime - Oracle Queries]
+ │ 🦉 Agent 2: x402 Clearing & Payment (XCPA)│ <── [Monitors HTTP 402 / Blockchain Receipts]
  └─────────────────────┬─────────────────────┘
-                       │
-             (5. Signs Claim Verification)
+                       │ (5. Signs & Updates: Policy = "Active")
+                       ▼
+ ┌───────────────────────────────────────────┐
+ │ 📋 State Synchronization & Context Engine │
+ └───────┬───────────────────────────▲───────┘
+         │                           │ (7. Submits Fail Claim)
+         │ (6. Reads Active Status)  │
+         ▼                           │
+ ┌───────────────────────────────────┴───────┐
+ │ 🦉 Agent 3: Claims Verification (CVAA)    │ <── [Oracle Queries: Explorer / Shipping APIs]
+ └─────────────────────┬─────────────────────┘
+                       │ (8. Signs & Updates: Claim = "Verified")
                        ▼
  ┌───────────────────────────────────────────┐
  │ 📋 State Synchronization & Context Engine │
  └─────────────────────┬─────────────────────┘
-                       │
-        (6. Verified Cryptographic Proof)
+                       │ (9. Reads Verified Proof)
                        ▼
  ┌───────────────────────────────────────────┐
- │ 🦉 Agent 3: Vault Settlement (VRSA)       │ <── [Strictly Sandboxed - Controls Vault]
+ │ 🦉 Agent 4: Vault Settlement (VRSA)       │ <── [Sandboxed Kernel - Controls Vault Payouts]
  └───────────────────────────────────────────┘
 ```
 
