@@ -104,13 +104,17 @@ To ensure the agents work in perfect harmony from a shared knowledge base withou
     ```
 *   **Input Sanitization**: The database API rejects any unformatted, natural-language string inserts, completely neutralizing prompt injection payloads before they can reach down-stream agents.
 
-### Cryptographic State Handshakes
-*   To prevent a hijacked or spoofed agent from writing false records to the database, each agent maintains a dedicated **OpenClaw Hot Wallet Private Key** (encrypted in ClawUp's environment vault).
-*   Every state update must be cryptographically signed by the originating agent's key. 
-*   Before the **Vault Settlement Agent (VRSA)** authorizes a payout, it programmatically verifies that:
-    1.  The active policy has a valid signature from `ROSA_ADDRESS`.
-    2.  The claim failure state has a valid signature from `CVAA_ADDRESS`.
-    3.  If both cryptographic proofs match, the settlement is authorized. If any signature is missing or altered, the transaction is rejected and flagged for governance review.
+### Cryptographic State Handshakes & On-Chain Signature Verification
+To prevent a hijacked or spoofed agent from writing false records or executing unauthorized disbursements, Novae Rog enforces **Direct On-Chain Cryptographic Signature Verification**:
+
+*   **Modular Hot Wallets**: Each agent maintains a dedicated, isolated **OpenClaw Hot Wallet Private Key** encrypted securely in ClawUp's native environment variable vault. 
+*   **Cryptographically Signed State Transitions**: Every state update written by an agent (e.g., ROSA signing a quote, XCPA signing a payment receipt, or CVAA signing a claim validation) is signed on-chain using that agent's private key.
+*   **Direct Smart Contract Verification (Zero-Trust Off-Chain Layer)**:
+    *   Rather than relying on the off-chain database or the VRSA agent to verify signatures, the **Syndicate Vault Smart Contract** on the GOAT Network programmatically executes `ecrecover` to extract and verify the signing addresses for every transaction.
+    *   A claim payout transaction will strictly revert on-chain unless presented with valid cryptographic signatures from both `ROSA_ADDRESS` (confirming active cover parameters) and `CVAA_ADDRESS` (confirming validated failure/dispute data).
+*   **Viability Analysis (Why On-Chain Verification is Optimal on GOAT L2)**:
+    *   **Immunity to Database Compromise**: If the off-chain State Sync Database is fully hacked, the attacker cannot steal vault funds because they cannot bypass on-chain cryptographic signature verification without acquiring the actual private keys locked inside ClawUp's sandboxed environment.
+    *   **Negligible Gas Overhead**: In standard EVM networks (like Ethereum mainnet), executing multiple on-chain `ecrecover` calls per transaction is cost-prohibitive due to gas limits. However, because **GOAT Network L2** features ultra-high throughput and sub-cent execution fees ($<0.001 per transaction), the gas cost of multiple on-chain signature recoveries is practically negligible, making this gold-standard security model highly viable.
 
 ---
 
