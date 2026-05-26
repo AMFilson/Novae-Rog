@@ -108,30 +108,30 @@ To deliver Web2-level consumer protection without destroying merchant cash flow,
 
 | Feature / Mechanism | Web2 Traditional Commerce (Stripe / Amazon / Visa) | Web3 Agentic Commerce (Novae Rog Protocol) |
 | :--- | :--- | :--- |
-| **Escrow & Pending Buffers** | **Shopify/Stripe** hold payments in pending balances ($T+2$/$T+7$ days). **Amazon** holds funds for 14 days before batch payout. | **Programmatic Escrows** lock funds in a GOAT smart contract for a standard 30-day window for unverified merchants. |
-| **Credit Guarantees** | Payment processors act as credit guarantors, holding a rolling merchant reserve (5-10%) to absorb chargebacks. | **Syndicate Vaults** underwrite the transaction. Highly trusted merchants get **instant settlement ($T+0$)** backed by pool stakers. |
+| **Escrow & Pending Buffers** | **Shopify/Stripe** hold payments in pending balances with 2-day to 7-day settlement windows (T+2/T+7). **Amazon** holds funds for 14 days before batch payout. | **Programmatic Escrows** lock funds in a GOAT smart contract for a standard 30-day window for unverified merchants. |
+| **Credit Guarantees** | Payment processors act as credit guarantors, holding a rolling merchant reserve (5-10%) to absorb chargebacks. | **Syndicate Vaults** underwrite the transaction. Highly trusted merchants get **instant same-day settlement (T+0)** backed by pool stakers. |
 | **Dispute Resolution** | Humans manually file chargebacks or claims. Resolution takes **30 to 90 days** via centralized bank networks. | **Agentic Arbitration** via ClawUp-hosted OpenClaw agents. Resolves disputes programmatically via API verification in **seconds**. |
 | **Micro-Transaction Cost** | Minimum card fee structures ($0.30 + 2.9\%$) make low-value digital/physical micropayments cost-prohibitive. | **GOAT L2 Gas Batching** and off-chain quote caching reduce transaction and risk pricing fees to **fractions of a cent**. |
 
 #### Dynamic Settlement Pathways for Merchants:
-*   **Highly Trusted Merchants ($T+0$ Instant Payout)**: Verified via our *Cross-Chain Related Wallet Clustering* engine (showing robust transaction history, solid liquidity, and zero disputes). They bypass return-window lockups; stakers in the Syndicate Vault absorb the 30-day chargeback risk.
+*   **Highly Trusted Merchants (T+0 Instant Payout / Same-Day Payout)**: Verified via our *Cross-Chain Related Wallet Clustering* engine (showing robust transaction history, solid liquidity, and zero disputes). They bypass return-window lockups; stakers in the Syndicate Vault absorb the 30-day chargeback risk.
 *   **Medium-Risk Merchants (Syndicate-Backed Instant Payout)**: Pay a tiny dynamic premium via **x402** to instantly unlock their funds, shifting all refund liability to Syndicate pool stakers.
 *   **Unverified/New Merchants (30-Day Escrow)**: Funds are held programmatically for 30 days. Once delivery is confirmed by carrier tracking APIs or the return window closes, funds clear to their wallet, allowing them to build trust credit on-chain.
 
 ### 🛡️ Safeguarding the Syndicate: Merchant Recourse and Vault Reimbursement
 
-To prevent stakers' capital in the **Syndicate Vault** from being drained when a return or dispute is approved for a merchant on the $T+0$ instant payout pathway, Novae Rog implements a robust, automated **Merchant Recourse Flow**:
+To prevent stakers' capital in the **Syndicate Vault** from being drained when a return or dispute is approved for a merchant on the T+0 instant payout (same-day payout) pathway, Novae Rog implements a robust, automated **Merchant Recourse Flow**:
 
 1.  **Immediate Payout & Automatic Settlement Clawback**:
     *   When a dispute is approved, the Syndicate Vault instantly refunds the shopping agent to maintain credit-card-level buyer protection.
 2.  **Programmatic Reimbursement Prompts (API/Webhook)**:
     *   The ClawUp-hosted underwriter agent instantly fires a webhook to the merchant's integration dashboard (or Telegram/Slack channel): *"Dispute processed for Transaction #XYZ. 100 USDT deducted from Syndicate Vault. Re-deposits required within 48 hours to maintain Instant Settlement status."*
 3.  **The Merchant Stake Vault (Price-Stable Collateral)**:
-    *   To qualify for $T+0$ instant payouts, merchants must lock a minimum amount of **USD Stablecoins (USDT/USDC)** into a dedicated **Merchant Stake Vault** on GOAT Network. This strictly insulates stakers from asset volatility and avoids on-chain margin calls.
+    *   To qualify for T+0 instant payouts (same-day payouts), merchants must lock a minimum amount of **USD Stablecoins (USDT/USDC)** into a dedicated **Merchant Stake Vault** on GOAT Network. This strictly insulates stakers from asset volatility and avoids on-chain margin calls.
     *   If the merchant does not manually reimburse the Syndicate Vault within 48 hours, the protocol programmatically **liquidates** the debt from the merchant's staked stablecoins, transferring it back to the Syndicate Vault to keep stakers fully whole.
 4.  **Trust Degradation & Dynamic Premium Spikes**:
     *   If a merchant defaults on their debt or their Stake Vault falls below the required threshold, their **Trust Score** instantly degrades by 20 points.
-    *   They lose the $T+0$ instant settlement privilege, are downgraded to the **30-Day Escrow Pathway**, and their **x402 dynamic premium fee** spikes dramatically (e.g., from 0.5% to 5%) to cover their higher default probability, ensuring that failing to fulfill their side of the bargain is financially unviable.
+    *   They lose the T+0 instant settlement privilege (same-day settlement), are downgraded to the **30-Day Escrow Pathway**, and their **x402 dynamic premium fee** spikes dramatically (e.g., from 0.5% to 5%) to cover their higher default probability, ensuring that failing to fulfill their side of the bargain is financially unviable.
     *   **Staker Liquidation Bounty**: To reward stakers for absorbing default credit risk, the smart contract deducts an additional **5% Liquidation Bounty** from the merchant's remaining locked stake during a collateral liquidation, distributing it directly to the staker pool as an active yield bonus.
 
 ---
