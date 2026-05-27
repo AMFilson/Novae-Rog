@@ -14,9 +14,11 @@ The initial idea for Novae Rog actually came from a good friend. From there, I t
 
 Building this alongside an AI agent was an incredible experience. I had a lot of fun, and I went through a lot of emotional highs and lows. In the end, we completely lost the hackathon because we weren't able to finish in time. I took it to heart and felt very hurt—not just because we lost, but because I genuinely found the ideas of my peers to be inferior. I don't mean that in some cocky way; I mean it genuinely. 
 
-A lot of what I saw at the competition was just "been there, done that." People just added a standard on-chain payment button to a project and called it a day. Come on, bro—that's a fucking shitcoin. 
+A lot of what I saw at the competition was just "been there, done that." People just added automated payments to a process that is already done, resolved, and perfectly solved in modern finance using modern traditional rails. The technology they are profiling isn't additive. Instead, it’s just extra, unnecessary baggage. It's like saying, *"Oh, look at me, I can also drive with my feet."* But why would you drive with your feet when it's so much harder than just using your hands?
 
-Novae Rog is different. The whole concept is to provide a form of wealth creation that encourages the speculator to participate, the investor to participate, and the casual retail person to participate (unbeknownst to them), in a way that actually benefits all parties.
+You can build real use cases with this x402 technology that actually leverage its unique capabilities to provide an exponential increase in the experience of the end-user, just like any other branch of technology. We need a fundamental shift. I'm really struggling to fundamentally change my view and my world view, but I strive to do so every single day because I believe wholeheartedly that I can envision something better. And if I can't envision it, I know somebody else can—and I hope they'll share that idea with me so we can build it out. That's what this should be.
+
+Novae Rog is that attempt. The whole concept is to provide a form of wealth creation that encourages the speculator to participate, the investor to participate, and the casual retail person to participate (unbeknownst to them), in a way that actually benefits all parties.
 
 ---
 
